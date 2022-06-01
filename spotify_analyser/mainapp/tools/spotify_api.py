@@ -1,9 +1,9 @@
 import requests as rq
-from key import auth_code, SECRET_KEY
+# from key import auth_code, SECRET_KEY #jenom kdyz se spousti tenhle skript samotny
 import base64 as b64
 import json
 CLIENT_ID = "1370eaae12cf4cce90818ae130d85091"  # Client ID spotify aplikace analyser
-REDIRECT_URI = "http://localhost:8080/"
+REDIRECT_URI = "http://localhost/proceed_with_auth_code/"
 SCOPES = ["user-library-read"]
 
 
