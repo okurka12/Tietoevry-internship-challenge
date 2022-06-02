@@ -1,4 +1,11 @@
-from sample import sample
+if __name__ == "__main__":
+    from sample import sample
+
+
+def ms_to_human(ms: int) -> str:
+    s = round(ms / 1000) % 60
+    m = int((ms / 1000) // 60)
+    return f"{m}:{s}"
 
 
 def output_tracks(items: list) -> list:
@@ -6,11 +13,13 @@ def output_tracks(items: list) -> list:
     for item in items:
         artists = ", ".join([artist["name"] for artist in item["track"]["album"]["artists"]])
         name = item["track"]["name"]
+        length = ms_to_human(item["track"]["duration_ms"])
+        popularity = item["track"]["popularity"]
         if not item["track"]["is_local"]:
             url = item["track"]["external_urls"]["spotify"]
         else:
             url = "/"
-        output.append({"name": f"{artists} - {name}", "url": url})
+        output.append({"name": f"{artists} - {name}", "url": url, "length": length, "popularity": popularity})
     return output
 
 
@@ -35,12 +44,12 @@ def min_max_avg(items: list) -> (int, int, int):
     for item in items:
         avg += item["track"]["duration_ms"]
     avg /= len(items)
-    shortest = min(items, key=lambda x: x["track"]["duration_ms"])
-    longest = max(items, key=lambda x: x["track"]["duration_ms"])
-    return shortest, longest, avg
+    shortest = min(items, key=lambda x: x["track"]["duration_ms"])["track"]["duration_ms"]
+    longest = max(items, key=lambda x: x["track"]["duration_ms"])["track"]["duration_ms"]
+    return ms_to_human(shortest), ms_to_human(longest), ms_to_human(avg)
 
 
-def main(sample=sample):
+def main():
     pass
 
 

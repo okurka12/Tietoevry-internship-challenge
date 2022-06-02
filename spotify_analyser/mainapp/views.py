@@ -3,8 +3,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 if __name__ == "__main__":  # its only set up here like this so that my ide would recognize the module and load snippets
     from tools import spotify_api
+    from tools import song_processing
 else:
     from mainapp.tools import spotify_api
+    from mainapp.tools import song_processing
 
 
 def home(request):
@@ -18,12 +20,27 @@ def home(request):
         }
         return render(request, "mainapp/authorize.html", data)
     elif "auth_code" in request.COOKIES:
+        return HttpResponseRedirect("/analysed_data")
+
+
+def view_analysed_data(request):
+    if "auth_code" in request.COOKIES:
         token = spotify_api.get_token(request.COOKIES["auth_code"])
         songs = spotify_api.get_songs(token)
-
-        response = HttpResponse(f"<p>{repr(songs)}</p>")
+        items = songs["items"]
+        shortest, longest, avg = song_processing.min_max_avg(items)  # str str str
+        shortests, longests = song_processing.by_length(items)  # list, list
+        least_popular, most_popular = song_processing.by_artist_popularity(items)  # list list
+        data = {
+            "min": shortest, "max": longest, "avg": avg,
+            "shortests": shortests, "longests": longests,
+            "least_popular": least_popular, "most_popular": most_popular
+        }
+        response = render(request, "mainapp/data.html", data)
         response.delete_cookie("auth_code")
         return response
+    else:
+        return HttpResponseRedirect("/")
 
 
 def process_redirect_from_api(request, query_str: str = ""):

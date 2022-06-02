@@ -1,0 +1,108 @@
+{% extends "mainapp/base.html" %}
+
+{% block content %}
+
+<table>
+<thead>
+  <tr>
+    <th colspan="3">Nejkratší písně</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>nazev</td>
+    <td>delka</td>
+    <td>popularita</td>
+  </tr>
+{% for song in shortests %}
+  <tr>
+    <td><a href="{{ song.url }}">{{ song.name }}</a> </td>
+    <td>{{ song.length }}</td>
+    <td>{{ song.popularity }}</td>
+  </tr>
+{% endfor %}
+
+</tbody>
+</table>
+
+
+
+<table>
+<thead>
+  <tr>
+    <th colspan="3">Nejdelší písně</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>nazev</td>
+    <td>delka</td>
+    <td>popularita</td>
+  </tr>
+{% for song in longests %}
+  <tr>
+    <td><a href="{{ song.url }}">{{ song.name }}</a> </td>
+    <td>{{ song.length }}</td>
+    <td>{{ song.popularity }}</td>
+  </tr>
+{% endfor %}
+
+</tbody>
+</table>
+
+
+
+<table>
+<thead>
+  <tr>
+    <th colspan="3">Písně nejméně populárních autorů</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>nazev</td>
+    <td>delka</td>
+    <td>popularita</td>
+  </tr>
+{% for song in least_popular %}
+  <tr>
+    <td><a href="{{ song.url }}">{{ song.name }}</a> </td>
+    <td>{{ song.length }}</td>
+    <td>{{ song.popularity }}</td>
+  </tr>
+{% endfor %}
+
+</tbody>
+</table>
+
+
+<table>
+<thead>
+  <tr>
+    <th colspan="3">Písně nejpopulárnějších autorů</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>nazev</td>
+    <td>delka</td>
+    <td>popularita</td>
+  </tr>
+{% for song in most_popular %}
+  <tr>
+    <td><a href="{{ song.url }}">{{ song.name }}</a> </td>
+    <td>{{ song.length }}</td>
+    <td>{{ song.popularity }}</td>
+  </tr>
+{% endfor %}
+
+</tbody>
+</table>
+
+
+
+
+
+
+
+{% endblock content %}
