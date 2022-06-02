@@ -14,20 +14,15 @@ def home(request):
         data = {
             "text": text,
             "url": spotify_api.get_authorize_url(),
-            "link_text": "Autorizovat aplikaci k přístupu do mojí knihovny"
+            "link_text": "Získat oblíbené písně"
         }
         return render(request, "mainapp/authorize.html", data)
     elif "auth_code" in request.COOKIES:
         token = spotify_api.get_token(request.COOKIES["auth_code"])
-        print(50*"--tady--")
         songs = spotify_api.get_songs(token)
+
         response = HttpResponse(f"<p>{repr(songs)}</p>")
         response.delete_cookie("auth_code")
-        print(songs)
-        print(f"\n\nstr songs\n{str(songs)}\n")
-        print(f"\nrepr songs\n{repr(songs)}")
-        print(f"\n\ntype songs\n{type(songs)}")
-        print(50 * "--konec--")
         return response
 
 

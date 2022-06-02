@@ -52,6 +52,13 @@ def get_songs(token: str) -> dict:
 
     response = rq.get(url, headers=headers)
     output = json.loads(response.content.decode("utf-8"))
+    # tady zmena
+    for i in range(1, output["total"]//50 + 1):
+        next_response = rq.get("https://api.spotify.com/v1/me/tracks" + stringify("limit=50", f"offset={i*50}"), headers=headers)
+        print(next_response)
+        output["items"].extend(json.loads(next_response.content.decode("utf-8"))["items"])
+    items = output["items"]
+    print(f"\n\n\nlen(output[\"items\"]) = {len(items)}")
     return output
 
 
