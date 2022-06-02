@@ -1,18 +1,21 @@
 import requests as rq
-# from key import auth_code, SECRET_KEY #jenom kdyz se spousti tenhle skript samotny
 import base64 as b64
 import json
+if __name__ == "__main__":  # so that IDE is not confused but also django project will work
+    from key import SECRET_KEY
+else:
+    from mainapp.tools import key
+    SECRET_KEY = key.SECRET_KEY
+
+
 CLIENT_ID = "1370eaae12cf4cce90818ae130d85091"  # Client ID spotify aplikace analyser
-REDIRECT_URI = "http://localhost/proceed_with_auth_code/"
+REDIRECT_URI = "http://localhost/proceed_with_auth_code/"  # set this to the domain the project is currently running on
 SCOPES = ["user-library-read"]
 
 
 def stringify(*query_args: str) -> str:  # takes a list of string arguments and
     # returns ? + arguments separated by ampersand
     return "?" + "&".join(query_args)
-
-
-token = "BQBGTT-t5ffe6kpwyOEekzxGXwiFG7vDqHith_I4k1MEpbCpy2Qfkrt5SGUjQGPuTTcBQNtriu4j9FpSp8c6NsVMPX2QKJM9wLFyXGTUelO-GLYUdYz3Eq9QMU8r_pmbt2jst-yn3o-M-3FThR91msc8QEpS9S7f"
 
 
 def get_token(authorization_code: str) -> str:
@@ -40,7 +43,7 @@ def get_authorize_url():
     )
 
 
-def get_songs():
+def get_songs(token: str) -> dict:
     headers = {
         "Authorization": f"Bearer {token}",  # TADY TO OPRAVIT
         "Content-Type": "application/json"
@@ -48,8 +51,8 @@ def get_songs():
     url = "https://api.spotify.com/v1/me/tracks" + stringify("limit=50")
 
     response = rq.get(url, headers=headers)
-    print(response)
-    print(response.content)
+    output = json.loads(response.content.decode("utf-8"))
+    return output
 
 
 def main():
