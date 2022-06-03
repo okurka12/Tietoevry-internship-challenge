@@ -1,6 +1,7 @@
 import requests as rq
 import base64 as b64
 import json
+from time import perf_counter
 if __name__ == "__main__":  # so that IDE is not confused but also django project will work
     from key import SECRET_KEY
 else:
@@ -44,6 +45,7 @@ def get_authorize_url() -> str:
 
 
 def get_songs(token: str) -> dict:
+    t = perf_counter()
     headers = {
         "Authorization": f"Bearer {token}",  # TADY TO OPRAVIT
         "Content-Type": "application/json"
@@ -59,7 +61,7 @@ def get_songs(token: str) -> dict:
         print(f"Obtaining songs {i*50} - {i*50 + 50} out of {song_count} - {next_response}")
         output["items"].extend(json.loads(next_response.content.decode("utf-8"))["items"])
     items = output["items"]
-    print(f"\n\n\nlen(output[\"items\"]) = {len(items)}")
+    print(f"obtained {song_count} items in {i + 1} requests in {perf_counter() - t:.7} s")
     return output
 
 

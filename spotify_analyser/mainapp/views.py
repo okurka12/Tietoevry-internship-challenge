@@ -10,7 +10,6 @@ else:
 
 
 def home(request):
-    print(f"\ncookies\n{request.COOKIES}\n")
     if "auth_code" not in request.COOKIES:
         if "number_of_tracks" in request.COOKIES:
             n = request.COOKIES["number_of_tracks"]
@@ -28,7 +27,6 @@ def home(request):
 
 def get_auth(request):
     if request.method == "POST":
-        print("\n\n\ntady xddd\n\n", request.POST)
         n = request.POST["number_of_tracks"]
         response = HttpResponseRedirect(spotify_api.get_authorize_url())
         response.set_cookie("number_of_tracks", n)
