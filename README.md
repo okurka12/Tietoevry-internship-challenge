@@ -16,4 +16,7 @@ Before deploying, `spotify_analyser/mainapp/tools/spotify_apy.py needs to be edi
  - `REDIRECT_URI` like so: `domain-name/proceed_with_auth_code/` 
  - These are all constants declared at the beginning of the file
 
+
+The app is now running at https://analyzer.vitapavlik.cz/
+
  
