@@ -26,6 +26,7 @@ def output_tracks(items: list) -> list:
 def first_and_last(items: list, length: int = 5) -> (list, list):
     first = items[:length]
     last = items[len(items) - length:]
+    last.reverse()
     return output_tracks(first), output_tracks(last)
 
 
