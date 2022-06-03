@@ -34,7 +34,7 @@ def get_token(authorization_code: str) -> str:
     return data["access_token"]
 
 
-def get_authorize_url():
+def get_authorize_url() -> str:
     return "https://accounts.spotify.com/authorize" + stringify(
         f"client_id={CLIENT_ID}",
         f"response_type=code",
@@ -53,9 +53,10 @@ def get_songs(token: str) -> dict:
     response = rq.get(url, headers=headers)
     output = json.loads(response.content.decode("utf-8"))
     # tady zmena
-    for i in range(1, output["total"]//50 + 1):
+    song_count = output["total"]
+    for i in range(1, song_count//50 + 1):
         next_response = rq.get("https://api.spotify.com/v1/me/tracks" + stringify("limit=50", f"offset={i*50}"), headers=headers)
-        print(f"{next_response}")
+        print(f"Obtaining songs {i*50} - {i*50 + 50} out of {song_count} - {next_response}")
         output["items"].extend(json.loads(next_response.content.decode("utf-8"))["items"])
     items = output["items"]
     print(f"\n\n\nlen(output[\"items\"]) = {len(items)}")

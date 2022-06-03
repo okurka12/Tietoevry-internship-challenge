@@ -3,6 +3,10 @@
 {% block content %}
 
 <p>{{ text }}</p>
-<p> <a href="{{ url }}">{{ link_text }}</a> </p>
+<form action="/get_auth_code/" method="post">
+    {% csrf_token %}
+    <input type="number" value="{{ number_of_tracks }}" min="1" name="number_of_tracks">
+    <input type="submit" value="Analyzuj moji knihovnu">
+</form>
 
 {% endblock content %}

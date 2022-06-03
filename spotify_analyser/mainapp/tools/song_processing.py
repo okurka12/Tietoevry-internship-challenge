@@ -5,7 +5,7 @@ if __name__ == "__main__":
 def ms_to_human(ms: int) -> str:
     s = round(ms / 1000) % 60
     m = int((ms / 1000) // 60)
-    return f"{m}:{s}"
+    return f"{m}:{s:02}"
 
 
 def output_tracks(items: list) -> list:
