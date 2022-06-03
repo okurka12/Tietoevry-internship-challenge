@@ -2,23 +2,23 @@
 
 {% block content %}
 
-<table>
+<table class="tg">
 <thead>
   <tr>
-    <th colspan="3">Nejkratší písně</th>
+    <th class="tg-0lax" colspan="3">Nejkratší písně</th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td>nazev</td>
-    <td>delka</td>
-    <td>popularita</td>
+    <td class="tg-0lax">nazev</td>
+    <td class="tg-0lax">delka</td>
+    <td class="tg-0lax">popularita</td>
   </tr>
 {% for song in shortests %}
   <tr>
-    <td><a href="{{ song.url }}">{{ song.name }}</a> </td>
-    <td>{{ song.length }}</td>
-    <td>{{ song.popularity }}</td>
+    <td class="tg-0lax"><a href="{{ song.url }}">{{ song.name }}</a> </td>
+    <td class="tg-0lax">{{ song.length }}</td>
+    <td class="tg-0lax">{{ song.popularity }}</td>
   </tr>
 {% endfor %}
 
@@ -27,23 +27,23 @@
 
 
 
-<table>
+<table class="tg">
 <thead>
   <tr>
-    <th colspan="3">Nejdelší písně</th>
+    <th class="tg-0lax" colspan="3">Nejdelší písně</th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td>nazev</td>
-    <td>delka</td>
-    <td>popularita</td>
+    <td class="tg-0lax">nazev</td>
+    <td class="tg-0lax">delka</td>
+    <td class="tg-0lax">popularita</td>
   </tr>
 {% for song in longests %}
   <tr>
-    <td><a href="{{ song.url }}">{{ song.name }}</a> </td>
-    <td>{{ song.length }}</td>
-    <td>{{ song.popularity }}</td>
+    <td class="tg-0lax"><a href="{{ song.url }}">{{ song.name }}</a> </td>
+    <td class="tg-0lax">{{ song.length }}</td>
+    <td class="tg-0lax">{{ song.popularity }}</td>
   </tr>
 {% endfor %}
 
@@ -52,23 +52,23 @@
 
 
 
-<table>
+<table class="tg">
 <thead>
   <tr>
-    <th colspan="3">Písně nejméně populárních autorů</th>
+    <th class="tg-0lax" colspan="3">Písně nejméně populárních autorů</th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td>nazev</td>
-    <td>delka</td>
-    <td>popularita</td>
+    <td class="tg-0lax">nazev</td>
+    <td class="tg-0lax">delka</td>
+    <td class="tg-0lax">popularita</td>
   </tr>
 {% for song in least_popular %}
   <tr>
-    <td><a href="{{ song.url }}">{{ song.name }}</a> </td>
-    <td>{{ song.length }}</td>
-    <td>{{ song.popularity }}</td>
+    <td class="tg-0lax"><a href="{{ song.url }}">{{ song.name }}</a> </td>
+    <td class="tg-0lax">{{ song.length }}</td>
+    <td class="tg-0lax">{{ song.popularity }}</td>
   </tr>
 {% endfor %}
 
@@ -76,23 +76,23 @@
 </table>
 
 
-<table>
+<table class="tg">
 <thead>
   <tr>
-    <th colspan="3">Písně nejpopulárnějších autorů</th>
+    <th class="tg-0lax" colspan="3">Písně nejpopulárnějších autorů</th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td>nazev</td>
-    <td>delka</td>
-    <td>popularita</td>
+    <td class="tg-0lax">nazev</td>
+    <td class="tg-0lax">delka</td>
+    <td class="tg-0lax">popularita</td>
   </tr>
 {% for song in most_popular %}
   <tr>
-    <td><a href="{{ song.url }}">{{ song.name }}</a> </td>
-    <td>{{ song.length }}</td>
-    <td>{{ song.popularity }}</td>
+    <td class="tg-0lax"><a href="{{ song.url }}">{{ song.name }}</a> </td>
+    <td class="tg-0lax">{{ song.length }}</td>
+    <td class="tg-0lax">{{ song.popularity }}</td>
   </tr>
 {% endfor %}
 
