@@ -1,7 +1,7 @@
 import requests as rq
 import base64 as b64
 import json
-from time import perf_counter
+from time import perf_counter, strftime
 if __name__ == "__main__":  # so that IDE is not confused but also django project will work
     from key import SECRET_KEY
 else:
@@ -12,6 +12,10 @@ else:
 CLIENT_ID = "1370eaae12cf4cce90818ae130d85091"  # Client ID spotify aplikace analyser
 REDIRECT_URI = "http://localhost/proceed_with_auth_code/"  # set this to the domain the project is currently running on
 SCOPES = ["user-library-read"]
+
+
+def curtim() -> str:
+    return strftime("%Y-%m-%d %H:%M:%S")
 
 
 def stringify(*query_args: str) -> str:  # takes a list of string arguments and
@@ -47,27 +51,25 @@ def get_authorize_url() -> str:
 def get_songs(token: str) -> dict:
     t = perf_counter()
     headers = {
-        "Authorization": f"Bearer {token}",  # TADY TO OPRAVIT
+        "Authorization": f"Bearer {token}",
         "Content-Type": "application/json"
     }
     url = "https://api.spotify.com/v1/me/tracks" + stringify("limit=50")
 
     response = rq.get(url, headers=headers)
     output = json.loads(response.content.decode("utf-8"))
-    # tady zmena
     song_count = output["total"]
     for i in range(1, song_count//50 + 1):
-        next_response = rq.get("https://api.spotify.com/v1/me/tracks" + stringify("limit=50", f"offset={i*50}"), headers=headers)
-        print(f"Obtaining songs {i*50} - {i*50 + 50} out of {song_count} - {next_response}")
+        next_response = rq.get("https://api.spotify.com/v1/me/tracks" + stringify("limit=50", f"offset={i*50}"),
+                               headers=headers)
+        print(f"[{curtim()}] Obtaining songs {i*50} - {i*50 + 50} out of {song_count} - {next_response}")
         output["items"].extend(json.loads(next_response.content.decode("utf-8"))["items"])
-    items = output["items"]
-    print(f"obtained {song_count} items in {i + 1} requests in {perf_counter() - t:.7} s")
+    print(f"[{curtim()}] Obtained {song_count} items in {i + 1} requests in {perf_counter() - t:.7} s")
     return output
 
 
 def main():
-    print(get_authorize_url())
-    get_songs()
+    pass
 
 
 if __name__ == "__main__":
