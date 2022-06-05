@@ -11,7 +11,7 @@ This project is built with the Python Django framework. Since I have no experien
 
 **Deployment**
 
-Before deploying, `spotify_analyser/mainapp/tools/spotify_api.py needs to be edited` so that
+Before deploying, `spotify_analyser/mainapp/tools/spotify_api.py` needs to be edited so that
  - There is a correct `CLIENT_ID` and `SECRET_KEY` of the registered spotify app
  - `REDIRECT_URI` like so: `domain-name/proceed_with_auth_code/` 
  - These are all constants declared at the beginning of the file
